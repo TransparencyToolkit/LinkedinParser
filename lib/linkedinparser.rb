@@ -4,7 +4,7 @@ require 'nokogiri'
 load 'personal_info.rb'
 load 'jobs.rb'
 
-class LinkedinParser
+class Linkedinparser
   def initialize(profile, profile_url, crawler_fields)
     @profile = profile
     @profile_url = profile_url
