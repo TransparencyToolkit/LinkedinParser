@@ -1,6 +1,8 @@
 load 'picture.rb'
+load 'utilities.rb'
 
 class PersonalInfo
+  include Utilities
   def initialize(profile, profile_url)
     @profile = profile
     @html = Nokogiri::HTML(profile)
@@ -19,7 +21,7 @@ class PersonalInfo
       area: area,
       industry: industry,
       summary: summary,
-      title: title,
+      current_title: title,
       interests: interests,
       number_of_connections: number_of_connections,
       picture: p.picture,
@@ -115,11 +117,6 @@ class PersonalInfo
     end
     
     return interest_list
-  end
-
-  # Check if item is nil or empty
-  def is_empty?(item)
-    item == nil || item.text.empty?
   end
 
   # Save the full html of the page
