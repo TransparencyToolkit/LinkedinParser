@@ -6,7 +6,7 @@ Gem::Specification.new do |s|
   s.description = 'Parses public LinkedIn profiles'
   s.authors     = ['M. C. McGrath']
   s.email       = 'shidash@shidash.com'
-  s.files       = Dir['lib/*.rb']
+  s.files       = ["lib/linkedinparser.rb", "lib/jobs.rb", "lib/personal_info.rb", "lib/picture.rb", "lib/utilities.rb"]
   s.homepage    =
     'https://github.com/TransparencyToolkit/linkedinparser'
   s.license       = 'GPL'
