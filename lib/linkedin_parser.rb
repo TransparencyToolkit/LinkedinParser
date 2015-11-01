@@ -5,9 +5,10 @@ load 'personal_info.rb'
 load 'jobs.rb'
 
 class LinkedinParser
-  def initialize(profile, profile_url)
+  def initialize(profile, profile_url, crawler_fields)
     @profile = profile
     @profile_url = profile_url
+    @crawler_fields = crawler_fields
     parse
   end
 
@@ -25,7 +26,7 @@ class LinkedinParser
   def results_by_job
     output = Array.new
     @job_info.each do |job|
-      output.push(job.merge!(@personal_info)) 
+      output.push(job.merge!(@personal_info).merge!(@crawler_fields)) 
     end
     
     JSON.pretty_generate(output)
@@ -35,14 +36,11 @@ class LinkedinParser
   def results_by_person
     output = @personal_info
     output[:jobs] = @job_info
+    output.merge!(@crawler_fields)
     JSON.pretty_generate(output)
-  end
-  
+  end  
 
-  # Scraper Details-
-  # Timestamp
-
-  # Fields to get additional details about-
+  # TODO: Fields to add to parser-
   # Organizations
   # Education
   # Projects
@@ -52,14 +50,14 @@ class LinkedinParser
   # Groups
 end
 
-# Get page to parse
-profile = Selenium::WebDriver::Firefox::Profile.new
-profile['intl.accept_languages'] = 'en'
-profile["javascript.enabled"] = false
-driver = Selenium::WebDriver.for :firefox, profile: profile
-url = "https://www.linkedin.com/pub/christopher-mcclellan/5b/a09/ba9"
+# Test:
+#profile = Selenium::WebDriver::Firefox::Profile.new
+#profile['intl.accept_languages'] = 'en'
+#profile["javascript.enabled"] = false
+#driver = Selenium::WebDriver.for :firefox, profile: profile
+#url = "https://www.linkedin.com/pub/christopher-mcclellan/5b/a09/ba9"
 #url = "https://www.linkedin.com/pub/maryann-holmes/2b/770/3b2"
-driver.navigate.to url
+#driver.navigate.to url
 
-l = LinkedinParser.new(driver.page_source, url)
-puts l.results_by_person
+#l = LinkedinParser.new(driver.page_source, url, {timestamp: Time.now})
+#puts l.results_by_job
