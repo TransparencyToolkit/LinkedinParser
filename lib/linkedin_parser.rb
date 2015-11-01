@@ -8,6 +8,7 @@ class LinkedinParser
   def initialize(profile, profile_url)
     @profile = profile
     @profile_url = profile_url
+    parse
   end
 
   def parse
@@ -20,6 +21,24 @@ class LinkedinParser
     @job_info = j.get_jobs
   end
 
+  # Return results with new item for each job
+  def results_by_job
+    output = Array.new
+    @job_info.each do |job|
+      output.push(job.merge!(@personal_info)) 
+    end
+    
+    JSON.pretty_generate(output)
+  end
+
+  # Return results in nested JSON
+  def results_by_person
+    output = @personal_info
+    output[:jobs] = @job_info
+    JSON.pretty_generate(output)
+  end
+  
+
   # Scraper Details-
   # Timestamp
 
@@ -31,10 +50,6 @@ class LinkedinParser
   # Languages
   # Certifications
   # Groups
-  
-  # Return JSON data-
-  # Nested JSON by person
-  # By position
 end
 
 # Get page to parse
@@ -47,4 +62,4 @@ url = "https://www.linkedin.com/pub/christopher-mcclellan/5b/a09/ba9"
 driver.navigate.to url
 
 l = LinkedinParser.new(driver.page_source, url)
-l.parse
+puts l.results_by_person
