@@ -1,14 +1,13 @@
 Gem::Specification.new do |s|
   s.name        = 'linkedinparser'
-  s.version     = '0.0.2'
+  s.version     = '0.0.4'
   s.date        = '2015-11-01'
   s.summary     = 'Parses public LinkedIn profiles'
   s.description = 'Parses public LinkedIn profiles'
   s.authors     = ['M. C. McGrath']
   s.email       = 'shidash@shidash.com'
-  s.files       = ["lib"]
+  s.files       = Dir['lib/*.rb']
   s.homepage    =
     'https://github.com/TransparencyToolkit/linkedinparser'
   s.license       = 'GPL'
-  s.add_runtime_dependency 'nokogiri', [">= 0"]
 end
