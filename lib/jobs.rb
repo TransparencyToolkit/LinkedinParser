@@ -22,7 +22,6 @@ class Jobs
     # Get lists of positions
     @positions_list = Array.new
     positions.each do |position|
-      begin
       @positions_list.push({
                              title: title(position),
                              company: company(position),
@@ -31,8 +30,6 @@ class Jobs
                              end_date: end_date(position),
                              work_location: work_location(position),
                              current: current(position)})
-      rescue
-      end
     end
   end
 
@@ -86,9 +83,9 @@ class Jobs
   def date_parse(date)
     begin
       date = date+"-01-01" if date =~ /^(19|20)\d{2}$/
-      Date.parse(date)
+      return Date.parse(date)
     rescue
-      binding.pry
+      return date
     end
   end
 
