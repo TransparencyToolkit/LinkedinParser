@@ -75,7 +75,7 @@ class Jobs
     if end_date == "Present"
       return end_date
     elsif end_date && !end_date.empty?
-      return Date.parse(end_date)
+      return date_parse(end_date)
     end
   end
 
