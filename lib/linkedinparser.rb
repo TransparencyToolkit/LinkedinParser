@@ -57,7 +57,8 @@ end
 #driver = Selenium::WebDriver.for :firefox, profile: profile
 #url = "https://www.linkedin.com/pub/christopher-mcclellan/5b/a09/ba9"
 #url = "https://www.linkedin.com/pub/maryann-holmes/2b/770/3b2"
-#driver.navigate.to url
 
+#url = "https://www.linkedin.com/pub/kenneth-chamberlin/32/8bb/b22"
+#driver.navigate.to url
 #l = LinkedinParser.new(driver.page_source, url, {timestamp: Time.now})
 #puts l.results_by_job
