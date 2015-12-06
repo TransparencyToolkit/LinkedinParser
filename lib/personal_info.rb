@@ -1,5 +1,10 @@
 load 'picture.rb'
 load 'utilities.rb'
+load 'education.rb'
+load 'groups.rb'
+load 'languages.rb'
+load 'related_people.rb'
+load 'certifications.rb'
 
 class PersonalInfo
   include Utilities
@@ -23,6 +28,11 @@ class PersonalInfo
       summary: summary,
       current_title: title,
       interests: interests,
+      education: education,
+      groups: groups,
+      certifications: certifications,
+      languages: languages,
+      related_people: related_people,
       number_of_connections: number_of_connections,
       picture: p.picture,
       pic_path: p.pic_path,
@@ -36,7 +46,9 @@ class PersonalInfo
 
   # Get the full name of the person
   def full_name
-    @html.css(".profile-overview").css('h1').text
+    name = @html.css(".profile-overview").css('h1')
+    name = @html.css(".profile-overview-content").css('h1') if is_empty?(name)
+    return name.text
   end
 
   # Get first part of name
@@ -47,6 +59,36 @@ class PersonalInfo
   # Get last part of name
   def last_name
     full_name.split(" ", 2).last.strip
+  end
+
+  # Get education info
+  def education
+    e = Education.new(@html)
+    return e.get_education
+  end
+
+  # Get a list of groups they are in
+  def groups
+    g = Groups.new(@html)
+    return g.get_groups
+  end
+
+  # Get the person's certifications
+  def certifications
+    c = Certifications.new(@html)
+    return c.get_certifications
+  end
+
+  # Get a list of languages they speak
+  def languages
+    l = Languages.new(@html)
+    return l.get_languages
+  end
+
+  # Get the people also viewed list from the side
+  def related_people
+    r = RelatedPeople.new(@html)
+    return r.get_related
   end
 
   # Get list of skills
@@ -71,12 +113,12 @@ class PersonalInfo
   
   # Get town
   def location
-    full_location.split(",").first.strip
+    full_location.split(",").first.strip if !full_location.empty?
   end
 
   # Get country/state
   def area
-    full_location.split(",").last.strip
+    full_location.split(",").last.strip if !full_location.empty?
   end
 
   # Get the industry the person works in (2 different formats)
@@ -90,7 +132,7 @@ class PersonalInfo
   def summary
     summary = @html.css('#summary').css('.description')
     summary = @html.css('.summary').first if is_empty?(summary)
-    return summary.text
+    return summary.text if summary
   end
 
   # Get the overall/current title

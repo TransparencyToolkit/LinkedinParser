@@ -5,7 +5,8 @@ class Picture
   
   # Get path to the picture url
   def picture
-    @html.css('.profile-picture').css('img').first['src']
+    pic = @html.css('.profile-picture').css('img').first
+    return pic['src'] if pic
   end
 
   # Download picture
