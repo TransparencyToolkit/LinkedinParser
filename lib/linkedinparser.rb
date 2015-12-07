@@ -17,24 +17,13 @@ class LinkedinParser
     begin
       p = PersonalInfo.new(@profile, @profile_url)
       @personal_info = p.get_personal_info
-      @personal_info.merge!({parsing_failed: "No"})
+      @personal_info.merge!({parsing_failed: false})
     rescue # Handle failed parsing
       @personal_info = {
         profile_url: @profile_url,
         full_html: @profile,
-        parsing_failed: "Yes"
+        parsing_failed: true
       }
-      binding.pry
-      # TODO: Finish parser
-      # TODO: Change how parser failure is detected/handled in crawler
-      # TODO: Run more and generally check failures/results
-      
-      # CLEANUP:
-      # REMOVE PRYx2
-      # REMOVE TEXT AT BOTTOM
-      # REMOVE CRAWLER AND PICS
-      # UPDATE GEM (ADD NEW FILES TO GEMFILE) AND TEST WITH CRAWLER
-      # PUSH TO GITHUB
     end
 
     # Get job info
@@ -42,8 +31,7 @@ class LinkedinParser
       j = Jobs.new(@profile)
       @job_info = j.get_jobs
     rescue # Handle failed job parsing
-      binding.pry
-      @job_info = {job_parsing_failed: "Yes"}
+      @job_info = {job_parsing_failed: true}
     end
   end
 
@@ -64,24 +52,4 @@ class LinkedinParser
     output.merge!(@crawler_fields)
     JSON.pretty_generate(output)
   end
-
-  # TODO: Fields to add to parser-
-  # Organizations
-  # Projects
-  # Courses
-  # Causes
-  # Websites
 end
-
-# Test:
-profile = Selenium::WebDriver::Firefox::Profile.new
-profile['intl.accept_languages'] = 'en'
-#profile["javascript.enabled"] = false
-driver = Selenium::WebDriver.for :firefox, profile: profile
-url = "https://www.linkedin.com/pub/christopher-mcclellan/5b/a09/ba9"
-#url = "https://www.linkedin.com/pub/maryann-holmes/2b/770/3b2"
-
-#url = "https://www.linkedin.com/pub/kenneth-chamberlin/32/8bb/b22"
-driver.navigate.to url
-l = LinkedinParser.new(driver.page_source, url, {timestamp: Time.now})
-puts l.results_by_job

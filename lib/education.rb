@@ -47,12 +47,12 @@ class Education
   # Get the start date for the degree
   def degree_start_date(school)
     start_date = school.css(".date-range").css("time")
-    return start_date[0].text if !is_empty?(start_date)
+    return start_date[0].text if !is_empty?(start_date[0])
   end
 
   # Get the end date for the degree
   def degree_end_date(school)
     end_date = school.css(".date-range").css("time")
-    return end_date[1].text if !is_empty?(end_date)
+    return end_date[1].text if !is_empty?(end_date[1])
   end
 end

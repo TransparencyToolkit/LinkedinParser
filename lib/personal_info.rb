@@ -5,6 +5,7 @@ load 'groups.rb'
 load 'languages.rb'
 load 'related_people.rb'
 load 'certifications.rb'
+load 'causes.rb'
 
 class PersonalInfo
   include Utilities
@@ -30,6 +31,7 @@ class PersonalInfo
       interests: interests,
       education: education,
       groups: groups,
+      causes: causes,
       certifications: certifications,
       languages: languages,
       related_people: related_people,
@@ -71,6 +73,12 @@ class PersonalInfo
   def groups
     g = Groups.new(@html)
     return g.get_groups
+  end
+
+  # Get causes they care about
+  def causes
+    c = Causes.new(@html)
+    return c.get_causes
   end
 
   # Get the person's certifications

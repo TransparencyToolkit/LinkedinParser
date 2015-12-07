@@ -30,26 +30,31 @@ class Certifications
 
   # Name of certification
   def certificate_name(certificate)
-    return certificate.css("h4").text
+    cert_name = certificate.css("h4")
+    return cert_name.text if !is_empty?(cert_name)
   end
 
   # Issuing authority
   def certificate_authority(certificate)
-    return certificate.css("h5").text.split(", ")[0]
+    cert_auth = certificate.css("h5")
+    return cert_auth.text.split(", ")[0] if !is_empty?(cert_auth)
   end
 
   # License Number
   def license_num(certificate)
-    return certificate.css("h5").text.split(", ")[1]
+    cert_num = certificate.css("h5")
+    return cert_num.text.split(", ")[1] if !is_empty?(cert_num)
   end
 
   # Start date for certificate
   def certificate_start(certificate)
-    return certificate.css(".date-range").css("time")[0].text
+    cert_start = certificate.css(".date-range").css("time")
+    return cert_start[0].text if !is_empty?(cert_start[0])
   end
 
   # Expiry date for certificate
   def certificate_end(certificate)
-    return certificate.css(".date-range").css("time")[1].text
+    cert_end = certificate.css(".date-range").css("time")
+    return cert_end[1].text if !is_empty?(cert_end[1])
   end
 end
