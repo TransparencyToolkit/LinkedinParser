@@ -6,7 +6,8 @@ class Picture
   # Get path to the picture url
   def picture
     pic = @html.css('.profile-picture').css('img').first
-    return pic['src'] if pic
+    pic_url = pic['src'] ? pic['src'] : pic['data-delayed-url']
+    return pic_url
   end
 
   # Download picture

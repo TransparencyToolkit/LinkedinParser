@@ -1,6 +1,8 @@
 require 'selenium-webdriver'
 require 'pry'
 require 'nokogiri'
+require 'open-uri'
+require 'json'
 load 'personal_info.rb'
 load 'jobs.rb'
 
