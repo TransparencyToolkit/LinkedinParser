@@ -26,7 +26,7 @@ class Picture
 
   # Deletes duplicate pictures
   def delete_duplicate_pics
-    pics = Dir["public/uploads/pictures/*.jpg.*"]
+    pics = Dir["pictures/*.jpg.*"]
     pics.each do |p|
       File.delete(p)
     end
