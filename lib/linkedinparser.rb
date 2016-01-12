@@ -3,6 +3,7 @@ require 'pry'
 require 'nokogiri'
 require 'open-uri'
 require 'json'
+require 'requestmanager'
 load 'personal_info.rb'
 load 'jobs.rb'
 

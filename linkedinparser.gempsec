@@ -1,7 +1,7 @@
 Gem::Specification.new do |s|
   s.name        = 'linkedinparser'
-  s.version     = '0.0.9'
-  s.date        = '2017-12-07'
+  s.version     = '0.1.1'
+  s.date        = '2016-01-12'
   s.summary     = 'Parses public LinkedIn profiles'
   s.description = 'Parses public LinkedIn profiles'
   s.authors     = ['M. C. McGrath']

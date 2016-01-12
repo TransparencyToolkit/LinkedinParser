@@ -107,10 +107,13 @@ class PersonalInfo
     skills = @html.css('#skills').css('.skill')
     skills = @html.css('.skill-pill .endorse-item-name-text') if is_empty?(skills)
 
-    # Make list of skills
+    # Make list of skills (not including see more or less)
     skills.each do |skill|
-      skill_list.push(skill.text)
+      if !skill["class"].include?("see-more") && !skill["class"].include?("see-less")
+          skill_list.push(skill.text)
+      end
     end
+    
     return skill_list
   end
 
